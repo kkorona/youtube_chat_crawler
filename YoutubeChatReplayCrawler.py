@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# target_list = ["https://www.youtube.com/watch?v=UrA97DgQ3eU"
 
 from bs4 import BeautifulSoup
 import ast
@@ -7,7 +6,11 @@ import requests
 import re
 import sys
 
-target_url = str(sys.argv[1])
+if len(sys.argv) == 1:
+    print("Usage : YoutubeChatReplayCrawler.py {Target Youtube URL} to crawl chat replays of Target Youtube URL.");
+    sys.exit(0);
+
+target_url = sys.argv[1]
 dict_str = ""
 next_url = ""
 comment_data = []
@@ -15,23 +18,29 @@ session = requests.Session()
 headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'}
 
 # まず動画ページにrequestsを実行しhtmlソースを手に入れてlive_chat_replayの先頭のurlを入手
-html = requests.get(target_url)
+html = session.get(target_url)
+with open("test.txt",'w',encoding="utf-8") as f:
+    f.write(html.text)
 soup = BeautifulSoup(html.text, "html.parser")
 title = soup.find_all("title")
 title = "".join(title[0].text.split("-")[:-1])
+INVALID_FILENAME = "\\/:*?\"<>|"
+for frag in INVALID_FILENAME:
+    title = title.replace(frag,"")
 RE_EMOJI = re.compile('[\U00010000-\U0010ffff]', flags=re.UNICODE)
-
 for iframe in soup.find_all("iframe"):
     if("live_chat_replay" in iframe["src"]):
         next_url= iframe["src"]
 
-
+print(next_url)
 while(1):
 
     try:
         html = session.get(next_url, headers=headers)
+        with open("test.txt",'w',encoding="utf-8") as f:
+            f.write(html.text)
         soup = BeautifulSoup(html.text,"lxml")
-
+        
 
         # 次に飛ぶurlのデータがある部分をfind_allで探してsplitで整形
         for scrp in soup.find_all("script"):
@@ -58,19 +67,29 @@ while(1):
 
     # next_urlが入手できなくなったら終わり
     except requests.ConnectionError as e:
+        print("Connection Error")
         continue
     except requests.HTTPError as e:
         print("HTTPError")
         break
     except requests.Timeout as e:
+        print("Timeout")
         continue
     except requests.exceptions.RequestException as e:
         print(e)
         break
     except KeyError as e:
+        print("KeyError")
+        print(e)
         break
     except SyntaxError as e:
+        print("SyntaxError")
+        print(e)
         continue
+    except KeyboardInterrupt as e:
+        break
+    except :
+        print("Unexpected error:" + str(sys.exc_info()[0]))
 
 # comment_data.txt にコメントデータを書き込む
 with open(title+".json", mode='w', encoding="utf-8") as f:
