@@ -1,5 +1,6 @@
 import glob
 import ast
+import sys
 for filename in glob.glob('*.json'):
     print(filename)
     target_id = filename.split('.')[0]
@@ -9,14 +10,12 @@ for filename in glob.glob('*.json'):
     count = 1
     result = ""
     with open(filename,'r',encoding='utf8') as f:
-        print("open")
         lines = f.readlines()
         for line in lines:
-            print(count)
+            sys.stdout.write('\rProcessing line %d' % (count))
             if 'liveChatTickerPaidMessageItemRenderer' in line:
                 continue
             if not 'liveChatTextMessageRenderer' in line and not 'liveChatPaidMessageRenderer' in line:
-                print("not chat")
                 continue
             ql = line
             frac = ("#Chat No.%05d " % count)
@@ -67,5 +66,6 @@ for filename in glob.glob('*.json'):
             
 
     target_id = filename.split('.')[0]
+    sys.stdout.write('\nDone!')
     with open(target_id+".txt",'w',encoding='utf8') as f:
         f.write(result)

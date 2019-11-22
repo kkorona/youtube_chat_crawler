@@ -19,8 +19,6 @@ headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/5
 
 # まず動画ページにrequestsを実行しhtmlソースを手に入れてlive_chat_replayの先頭のurlを入手
 html = session.get(target_url)
-with open("test.txt",'w',encoding="utf-8") as f:
-    f.write(html.text)
 soup = BeautifulSoup(html.text, "html.parser")
 title = soup.find_all("title")
 title = "".join(title[0].text.split("-")[:-1])
@@ -37,8 +35,6 @@ while(1):
 
     try:
         html = session.get(next_url, headers=headers)
-        with open("test.txt",'w',encoding="utf-8") as f:
-            f.write(html.text)
         soup = BeautifulSoup(html.text,"lxml")
         
 
