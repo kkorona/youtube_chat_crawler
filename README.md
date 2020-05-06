@@ -17,7 +17,7 @@ python chatReplayConverter.py 명령을 통해 해당 json 파일을 알아보�
 # youtube_chat_crawler
 youtube_chat_crawler crawls liveChat messages from finished live stream.
 
-Original source code is derived from 雑記帳(@watagasi). ( http://watagassy.hatenablog.com/entry/2018/10/08/132939 )
+Original source code is forked from 雑記帳(@watagasi). ( http://watagassy.hatenablog.com/entry/2018/10/08/132939 )
 
 Added minor fixes (like parsing problems)
 
