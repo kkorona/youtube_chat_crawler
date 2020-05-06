@@ -10,6 +10,8 @@ Python 3.x를 요구하며, bs4 / requests / ast 모듈의 설치를 요구합�
 
 사용법 : python YoutubeChatReplayCrawler.py {유튜브 스트리밍 링크}
 
+(예 : python YoutubeChatReplayCrawler.py https://www.youtube.com/watch?v=WuMzBTDz9DI)
+
 이러면 해당 방송의 제목을 이름으로 가지는 json 파일이 생성됩니다.
 
 python chatReplayConverter.py 명령을 통해 해당 json 파일을 알아보기 쉬운 text file 형태로 변환할 수 있습니다. chatReplayConverter.py는 해당 스크립트가 포함된 폴더 내의 모든 json 파일을 text 형식으로 변환합니다.
@@ -23,7 +25,9 @@ Added minor fixes (like parsing problems)
 
 Python 3.x, bs4 / request / ast module is required.
 
-Usage : python YoutubeChatReplayCrawler.py {YOUR_TARGET_STREAM_LINK}
+Usage : python YoutubeChatReplayCrawler.py {YOUR_TARGET_STREAM_LINK
+
+(example : python YoutubeChatReplayCrawler.py https://www.youtube.com/watch?v=WuMzBTDz9DI)
 
 You can get a json file, which contains the live stream chat data.
 
