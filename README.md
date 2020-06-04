@@ -25,7 +25,7 @@ Added minor fixes (like parsing problems)
 
 Python 3.x, bs4 / request / ast module is required.
 
-Usage : python YoutubeChatReplayCrawler.py {YOUR_TARGET_STREAM_LINK}
+Usage : python3 YoutubeChatReplayCrawler.py {YOUR_TARGET_STREAM_LINK}
 
 (example : python YoutubeChatReplayCrawler.py https://www.youtube.com/watch?v=WuMzBTDz9DI)
 
